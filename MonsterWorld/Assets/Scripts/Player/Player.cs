@@ -1,8 +1,11 @@
+ using System;
  using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+ using TMPro;
+ using UnityEngine;
+ using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+ public class Player : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -16,9 +19,13 @@ public class Player : MonoBehaviour
     
     [Header("Interaction Sphere")]
     public InteractionSphere interactionSphere;
+
+    public int damage = 10;
     
     [Header("Level System")]
     public LevelSystem levelSystem;
+
+    public MonsterStats monsterStats;
     
     [Header("Monsters")]
     public List<GameObject> monsters; // Drag your monster GameObjects here
@@ -26,14 +33,31 @@ public class Player : MonoBehaviour
 
     private Vector3 velocity;
     private bool isGrounded;
+    private bool isDead = false;
 
-    // 🔁 Interaction cooldown tracker
+    // Interaction cooldown tracker
     private float interactionCooldownTimer = 0f;
     private bool isAttacking = false;
     public float attackDelay;
+    
+    [Header("Health")]
+    public int maxHP = 100;
+    [SerializeField] private int currentHP;
+    public float respawnTime = 3f;
+    public Slider hpSlider;
+    public TextMeshProUGUI hpText;
+    public Transform respawnPoint; // Assign in Inspector
+
+    private void Start()
+    {
+        currentHP = maxHP;
+        damage = monsterStats.baseDamage;
+        UpdateHPUI();
+    }
 
     void Update()
     {
+        if (isDead) return;
         HandleMovement();
         HandleAttack();
         ApplyGravity();
@@ -101,17 +125,25 @@ public class Player : MonoBehaviour
         if (currentMonsterIndex < monsters.Count)
             monsters[currentMonsterIndex].SetActive(false);
 
-        // Clamp new index to available monsters
+        // Clamp new index
         currentMonsterIndex = Mathf.Min(newLevel - 1, monsters.Count - 1);
 
         // Enable new monster
-        monsters[currentMonsterIndex].SetActive(true);
+        var newMonster = monsters[currentMonsterIndex];
+        newMonster.SetActive(true);
 
-        // Replace animator with the one from new monster
-        Animator newAnimator = monsters[currentMonsterIndex].GetComponentInChildren<Animator>();
-        if (newAnimator != null)
+        // Replace animator
+        Animator newAnimator = newMonster.GetComponentInChildren<Animator>();
+        if (newAnimator != null) animator = newAnimator;
+        
+        if (monsterStats != null)
         {
-            animator = newAnimator;
+            monsterStats.ScaleStats(newLevel);
+            // Optionally apply new stats to the player as well
+            maxHP = monsterStats.currentHP;
+            currentHP = maxHP;
+            damage = monsterStats.currentDamage;
+            UpdateHPUI();
         }
     }
     
@@ -123,10 +155,70 @@ public class Player : MonoBehaviour
 
         if (interactionSphere != null)
         {
-            interactionSphere.StartInteractionSphere();
+            interactionSphere.StartInteractionSphere(damage);
             interactionCooldownTimer = interactionSphere.interactionCooldown;
         }
 
         isAttacking = false;
+    }
+    
+    public void TakeDamage(int amount)
+    {
+        if (currentHP <= 0) return;
+        currentHP -= amount;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        UpdateHPUI();
+
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Heal(int amount)
+    {
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        UpdateHPUI();
+    }
+
+    void Die()
+    {
+        animator.SetTrigger("Death");
+        animator.SetBool("Died", true);
+        characterController.enabled = false;
+        isDead = true;
+        StartCoroutine(Respawn());
+    }
+
+    IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(respawnTime);
+        animator.SetBool("Died", false);
+
+        // Reset HP
+        currentHP = maxHP;
+        UpdateHPUI();
+
+        // Move to respawn point
+        transform.position = respawnPoint.position;
+        transform.rotation = respawnPoint.rotation;
+        
+        characterController.enabled = true;
+        isDead = false;
+    }
+    
+    void UpdateHPUI()
+    {
+        if (hpSlider != null)
+        {
+            hpSlider.maxValue = maxHP;
+            hpSlider.value = currentHP;
+        }
+
+        if (hpText != null)
+        {
+            hpText.text = $"{currentHP}/{maxHP}";
+        }
     }
 }

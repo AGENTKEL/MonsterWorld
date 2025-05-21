@@ -61,4 +61,9 @@ public class LevelSystem : MonoBehaviour
             levelText.text = $"{currentLevel}";
         }
     }
+    
+    public void ForceUpgrade()
+    {
+        AddXP(xpToNextLevel);
+    }
 }

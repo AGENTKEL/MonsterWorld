@@ -19,36 +19,26 @@ public class InteractionSphere : MonoBehaviour {
     private bool hasInteracted = false;
 
     [Header("Stats")] 
-    public int damage = 10;
+    public int sphereDamage = 10;
 
     void Update() {
         if (isGrowing) UpdateSphere();
-
-        bool anyInRange = false;
-        string[] tagsToCheck = { "Food"};
+        
+        string[] tagsToCheck = { "Food", "Enemy"};
 
         foreach (string tag in tagsToCheck) {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
             foreach (GameObject target in targets) {
                 if (Vector3.Distance(transform.position, target.transform.position) <= minDistance) {
-                    anyInRange = true;
                     break;
                 }
             }
-            if (anyInRange) break;
-        }
-
-        if (!anyInRange) return;
-
-        if (Input.GetKeyDown(KeyCode.E)) {
-            if (hasInteracted) hasInteracted = false;
-            else if (!isGrowing) StartInteractionSphere();
         }
     }
 
-    public void StartInteractionSphere() {
+    public void StartInteractionSphere(int damage) {
         if (sphere != null) Destroy(sphere);
-
+        sphereDamage = damage;
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = transform.position;
         sphere.transform.localScale = Vector3.zero;
@@ -98,7 +88,14 @@ public class InteractionSphere : MonoBehaviour {
         Collider[] colliders = Physics.OverlapSphere(sphere.transform.position, currentRadius);
         foreach (Collider col in colliders) {
             if (col.CompareTag("Food")) {
-                col.GetComponent<Food>()?.TakeDamage(damage);
+                col.GetComponent<Food>()?.TakeDamage(sphereDamage);
+                hasInteracted = true;
+                StartCoroutine(ResetInteraction());
+                break;
+            }
+            
+            if (col.CompareTag("Enemy")) {
+                col.GetComponent<Enemy>()?.TakeDamage(sphereDamage);
                 hasInteracted = true;
                 StartCoroutine(ResetInteraction());
                 break;
