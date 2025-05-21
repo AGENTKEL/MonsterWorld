@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Food
   - Enemy
+  - Buy
   layers:
   - Default
   - TransparentFX
