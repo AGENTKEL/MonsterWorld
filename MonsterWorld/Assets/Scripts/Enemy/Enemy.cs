@@ -29,12 +29,15 @@ public class Enemy : MonoBehaviour
     public GameObject botUI;
 
     [Header("Player Reference")]
-    public Transform player; // Assign this at runtime or in inspector
+    public Transform player;
     public int xpReward = 20;
+    public int moneyReward = 15;
     private LevelSystem levelSystem;
 
     private bool isAttacking = false;
     private bool isDead = false;
+
+    public float attackDelay = 0.3f;
 
     void Start()
     {
@@ -65,7 +68,7 @@ public class Enemy : MonoBehaviour
     {
         isAttacking = true;
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.3f); // Sync with animation if needed
+        yield return new WaitForSeconds(attackDelay); // Sync with animation if needed
 
         if (enemySphere != null)
         {
@@ -108,6 +111,7 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Death");
         animator.SetBool("Died", true);
         levelSystem.AddXP(xpReward);
+        levelSystem.AddMoney(moneyReward);
 
         StartCoroutine(RespawnAfterDelay());
     }

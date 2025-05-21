@@ -10,14 +10,22 @@ public class LevelSystem : MonoBehaviour
     public int currentLevel = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
-    public float xpIncreaseFactor = 1.25f; // Increase XP needed each level
+    public float xpIncreaseFactor = 1.25f;
 
     [Header("UI References")]
     public Slider xpSlider;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI xpText;
-    
+    public TextMeshProUGUI moneyText;
+
+    [Header("Money Settings")]
+    public int money = 0;
+
     public Player player;
+
+    [Header("Level Obstacles")] 
+    [SerializeField] private LevelObstacle _levelObstacleDesert;
+    [SerializeField] private LevelObstacle _levelObstacleSnow;
 
     private void Start()
     {
@@ -37,10 +45,32 @@ public class LevelSystem : MonoBehaviour
             if (player != null)
             {
                 player.OnLevelUp(currentLevel);
+                if (currentLevel >= _levelObstacleDesert.levelToUnlock)
+                {
+                    _levelObstacleDesert.Interact();
+                }
+                
+                if (currentLevel >= _levelObstacleSnow.levelToUnlock)
+                {
+                    _levelObstacleSnow.Interact();
+                }
             }
         }
 
         UpdateUI();
+    }
+
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        UpdateMoneyUI();
+    }
+
+    public void SubtractMoney(int amount)
+    {
+        money -= amount;
+        if (money < 0) money = 0;
+        UpdateMoneyUI();
     }
 
     private void UpdateUI()
@@ -60,8 +90,18 @@ public class LevelSystem : MonoBehaviour
         {
             levelText.text = $"{currentLevel}";
         }
+
+        UpdateMoneyUI();
     }
-    
+
+    private void UpdateMoneyUI()
+    {
+        if (moneyText != null)
+        {
+            moneyText.text = $"{money}";
+        }
+    }
+
     public void ForceUpgrade()
     {
         AddXP(xpToNextLevel);

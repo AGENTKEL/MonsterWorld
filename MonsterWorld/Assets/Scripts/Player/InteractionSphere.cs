@@ -21,10 +21,12 @@ public class InteractionSphere : MonoBehaviour {
     [Header("Stats")] 
     public int sphereDamage = 10;
 
+    [SerializeField] private LevelSystem _levelSystem;
+
     void Update() {
         if (isGrowing) UpdateSphere();
         
-        string[] tagsToCheck = { "Food", "Enemy"};
+        string[] tagsToCheck = { "Food", "Enemy", "Buy"};
 
         foreach (string tag in tagsToCheck) {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
@@ -96,6 +98,13 @@ public class InteractionSphere : MonoBehaviour {
             
             if (col.CompareTag("Enemy")) {
                 col.GetComponent<Enemy>()?.TakeDamage(sphereDamage);
+                hasInteracted = true;
+                StartCoroutine(ResetInteraction());
+                break;
+            }
+            
+            if (col.CompareTag("Buy")) {
+                col.GetComponent<MoneyInteract>()?.Interact(_levelSystem);
                 hasInteracted = true;
                 StartCoroutine(ResetInteraction());
                 break;

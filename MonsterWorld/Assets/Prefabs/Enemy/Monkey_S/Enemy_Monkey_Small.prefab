@@ -508,18 +508,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 9050189892810099181}
   enemySphere: {fileID: 4011521087113392693}
-  attackRange: 5
-  attackCooldown: 1.5
-  maxHP: 100
+  attackRange: 3
+  attackCooldown: 2
+  maxHP: 200
   currentHP: 0
-  damage: 30
-  respawnDelay: 3
+  damage: 20
+  respawnDelay: 5
   hpSlider: {fileID: 4286080748981143981}
   hpText: {fileID: 4858518119058050077}
   botModel: {fileID: 1007956192851439169}
   botUI: {fileID: 8685025799011427949}
   player: {fileID: 0}
-  xpReward: 20
+  xpReward: 50
+  moneyReward: 5
 --- !u!114 &4011521087113392693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42c64e54411162488bfd973dcce0d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRadius: 10
+  maxRadius: 5
   growSpeed: 40
   fadeSpeed: 20
   minDistance: 30

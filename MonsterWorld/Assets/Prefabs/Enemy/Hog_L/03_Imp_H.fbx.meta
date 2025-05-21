@@ -1,9 +1,59 @@
 fileFormatVersion: 2
-guid: e5a05efc5fc2e904494ecdc4c3d537ec
+guid: 8f9ee73fe9107404ba770f74be1c6cda
 ModelImporter:
   serializedVersion: 22200
-  internalIDToNameTable: []
-  externalObjects: {}
+  internalIDToNameTable:
+  - first:
+      74: -8193782929328637355
+    second: AttackLeft_Imp_H
+  - first:
+      74: -1214855496835610407
+    second: AttackRight_Imp_H
+  - first:
+      74: 4400569908239214345
+    second: Block_Imp_H
+  - first:
+      74: -306217054153263082
+    second: Death_Imp_H
+  - first:
+      74: 6409876802363946311
+    second: GunLeft_Imp_H
+  - first:
+      74: -2454120172957766984
+    second: GunRight_Imp_H
+  - first:
+      74: 6932279405986250963
+    second: Hit_Imp_H
+  - first:
+      74: 537128428464262930
+    second: Idle_Imp_H
+  - first:
+      74: 54635523202980353
+    second: Jump_Imp_H
+  - first:
+      74: 6948876711027163964
+    second: Rage_Imp_H
+  - first:
+      74: 7972614654280203448
+    second: Run_Imp_H
+  - first:
+      74: -7116749685523353024
+    second: Walk_Imp_H
+  - first:
+      74: -2851733954171209684
+    second: WalkBack_Imp_H
+  - first:
+      74: -3626495218117958562
+    second: WalkLeft_Imp_H
+  - first:
+      74: -4098022081884381804
+    second: WalkRight_Imp_H
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Imp
+    second: {fileID: 2100000, guid: 99aae1bca7b1e2940b5be9d5fd8abc5a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -45,7 +95,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    nodeNameCollisionStrategy: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -99,10 +149,10 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 1
-  remapMaterialsIfMaterialImportModeIsNone: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
