@@ -11,6 +11,7 @@ public class Food : MonoBehaviour
         public int xpReward = 25;
         private int currentHP;
         private bool isDead = false;
+        [SerializeField] private bool cantRespawn = false;
     
         [Header("UI References")]
         public Slider hpSlider;
@@ -51,8 +52,8 @@ public class Food : MonoBehaviour
             {
                 player.levelSystem.AddXP(xpReward);
             }
-
-            StartCoroutine(Respawn());
+            if (!cantRespawn)
+                StartCoroutine(Respawn());
         }
     
         private IEnumerator Respawn()

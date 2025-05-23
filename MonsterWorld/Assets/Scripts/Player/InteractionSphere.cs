@@ -26,7 +26,7 @@ public class InteractionSphere : MonoBehaviour {
     void Update() {
         if (isGrowing) UpdateSphere();
         
-        string[] tagsToCheck = { "Food", "Enemy", "Buy"};
+        string[] tagsToCheck = { "Food", "Enemy", "Buy", "Chest"};
 
         foreach (string tag in tagsToCheck) {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
@@ -105,6 +105,13 @@ public class InteractionSphere : MonoBehaviour {
             
             if (col.CompareTag("Buy")) {
                 col.GetComponent<MoneyInteract>()?.Interact(_levelSystem);
+                hasInteracted = true;
+                StartCoroutine(ResetInteraction());
+                break;
+            }
+            
+            if (col.CompareTag("Chest")) {
+                col.GetComponent<Chest>()?.Interact(_levelSystem);
                 hasInteracted = true;
                 StartCoroutine(ResetInteraction());
                 break;
