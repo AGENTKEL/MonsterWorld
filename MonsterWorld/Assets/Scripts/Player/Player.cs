@@ -25,6 +25,7 @@ using System.Collections.Generic;
     
     [Header("Level System")]
     public LevelSystem levelSystem;
+    public ParticleSystem levelUpParticle;
 
     public MonsterStats monsterStats;
     
@@ -163,6 +164,7 @@ using System.Collections.Generic;
         var newMonster = monsters[currentMonsterIndex];
         newMonster.SetActive(true);
         timer.SetTimeLeaderBoard();
+        levelUpParticle.Play();
 
         // Replace animator
         Animator newAnimator = newMonster.GetComponentInChildren<Animator>();
