@@ -517,7 +517,10 @@ PlayerSettings:
       m_Height: 720
       m_Kind: 1
       m_SubKind: 
-  m_BuildTargetBatching: []
+  m_BuildTargetBatching:
+  - m_BuildTarget: WebGL
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs: []
   m_BuildTargetGraphicsJobMode: []
@@ -812,7 +815,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;InterstitialAdv_yg;RewardedAdv_yg;Authorization_yg;Leaderboards_yg;EnvirData_yg;Localization_yg;AutoTranslateLangs_yg
+    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;InterstitialAdv_yg;RewardedAdv_yg;Authorization_yg;Leaderboards_yg;EnvirData_yg;Localization_yg;AutoTranslateLangs_yg;Storage_yg
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

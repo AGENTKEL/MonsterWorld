@@ -1,0 +1,112 @@
+newmtl Wingpart1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Wingpart1_diff.png
+map_Kd Wingpart1_diff.png
+map_d Wingpart1_diff.png
+
+newmtl Wingpart4Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Wingpart4_diff.png
+map_Kd Wingpart4_diff.png
+map_d Wingpart4_diff.png
+
+newmtl Wingpart3Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Wingpart3_diff.png
+map_Kd Wingpart3_diff.png
+map_d Wingpart3_diff.png
+
+newmtl Wingpart2Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Wingpart2_diff.png
+map_Kd Wingpart2_diff.png
+map_d Wingpart2_diff.png
+
+newmtl Horn1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Horn1_diff.png
+map_Kd Horn1_diff.png
+map_d Horn1_diff.png
+
+newmtl Legs1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Legs1_diff.png
+map_Kd Legs1_diff.png
+map_d Legs1_diff.png
+
+newmtl Body1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Body1_diff.png
+map_Kd Body1_diff.png
+map_d Body1_diff.png
+
+newmtl Body2Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Body2_diff.png
+map_Kd Body2_diff.png
+map_d Body2_diff.png
+

@@ -12,6 +12,7 @@ using System.Collections.Generic;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
     public CharacterController characterController;
+    public Timer timer;
     public Transform cameraRig;
 
     [Header("Animation")]
@@ -34,6 +35,7 @@ using System.Collections.Generic;
     private Vector3 velocity;
     private bool isGrounded;
     private bool isDead = false;
+    public bool cursorVisible = false;
 
     // Interaction cooldown tracker
     private float interactionCooldownTimer = 0f;
@@ -42,11 +44,15 @@ using System.Collections.Generic;
     
     [Header("Health")]
     public int maxHP = 100;
-    [SerializeField] private int currentHP;
+    public int currentHP;
     public float respawnTime = 3f;
     public Slider hpSlider;
     public TextMeshProUGUI hpText;
-    public Transform respawnPoint; // Assign in Inspector
+    public Transform respawnPoint;
+    public Transform respawnPoint2;
+    public Transform respawnPoint3;
+    private float timeSinceLastDamage = 0f;
+    private bool isRegenerating = false;
 
     private void Start()
     {
@@ -58,17 +64,32 @@ using System.Collections.Generic;
     void Update()
     {
         if (isDead) return;
-        HandleMovement();
-        HandleAttack();
-        ApplyGravity();
 
-        // Update cooldown timer
+        ApplyGravity();
+        HandleCursorToggle();
+
         if (interactionCooldownTimer > 0f)
             interactionCooldownTimer -= Time.deltaTime;
+
+        if (cursorVisible) return;
+
+        HandleMovement();
+        HandleAttack();
+
+        // Track time since last damage
+        timeSinceLastDamage += Time.deltaTime;
+
+        // Start regen if conditions are met
+        if (timeSinceLastDamage >= 5f && !isRegenerating && currentHP < maxHP)
+        {
+            StartCoroutine(RegenerateHP());
+        }
     }
 
     void HandleMovement()
     {
+        if (cursorVisible) return;
+        
         isGrounded = characterController.isGrounded;
 
         float h = Input.GetAxis("Horizontal");
@@ -93,6 +114,16 @@ using System.Collections.Generic;
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+    }
+    
+    void HandleCursorToggle()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            cursorVisible = !cursorVisible;
+            Cursor.visible = cursorVisible;
+            Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 
@@ -131,6 +162,7 @@ using System.Collections.Generic;
         // Enable new monster
         var newMonster = monsters[currentMonsterIndex];
         newMonster.SetActive(true);
+        timer.SetTimeLeaderBoard();
 
         // Replace animator
         Animator newAnimator = newMonster.GetComponentInChildren<Animator>();
@@ -165,14 +197,41 @@ using System.Collections.Generic;
     public void TakeDamage(int amount)
     {
         if (currentHP <= 0) return;
+
         currentHP -= amount;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHPUI();
+
+        timeSinceLastDamage = 0f;
+
+        if (isRegenerating)
+        {
+            StopCoroutine(RegenerateHP());
+            isRegenerating = false;
+        }
 
         if (currentHP <= 0)
         {
             Die();
         }
+    }
+    
+    IEnumerator RegenerateHP()
+    {
+        isRegenerating = true;
+
+        while (currentHP < maxHP)
+        {
+            Heal(Mathf.RoundToInt(maxHP * 0.1f));
+            yield return new WaitForSeconds(1f);
+
+            if (timeSinceLastDamage < 5f) // If damaged during regen, stop
+            {
+                break;
+            }
+        }
+
+        isRegenerating = false;
     }
 
     public void Heal(int amount)
@@ -201,9 +260,24 @@ using System.Collections.Generic;
         UpdateHPUI();
 
         // Move to respawn point
-        transform.position = respawnPoint.position;
-        transform.rotation = respawnPoint.rotation;
+        if (levelSystem.currentLevel < 15)
+        {
+            transform.position = respawnPoint.position;
+            transform.rotation = respawnPoint.rotation; 
+        }
         
+        else if (levelSystem.currentLevel >= 15 && levelSystem.currentLevel < 25)
+        {
+            transform.position = respawnPoint2.position;
+            transform.rotation = respawnPoint2.rotation; 
+        }
+        
+        else if (levelSystem.currentLevel >= 25)
+        {
+            transform.position = respawnPoint3.position;
+            transform.rotation = respawnPoint3.rotation; 
+        }
+
         characterController.enabled = true;
         isDead = false;
     }

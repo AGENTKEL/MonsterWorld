@@ -653,7 +653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6363844212688279151}
   enemySphere: {fileID: 4632081961736181501}
-  attackRange: 3
+  attackRange: 5
   attackCooldown: 2
   maxHP: 1000
   currentHP: 0
@@ -661,11 +661,12 @@ MonoBehaviour:
   respawnDelay: 10
   hpSlider: {fileID: 2027352637671118639}
   hpText: {fileID: 3952911894913427825}
-  botModel: {fileID: 0}
+  botModel: {fileID: 3850167677287972160}
   botUI: {fileID: 8662004946583763933}
   player: {fileID: 0}
   xpReward: 100
-  moneyReward: 100
+  moneyReward: 25
+  attackDelay: 0.3
 --- !u!114 &4632081961736181501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42c64e54411162488bfd973dcce0d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRadius: 5
+  maxRadius: 10
   growSpeed: 40
   fadeSpeed: 20
   minDistance: 30
@@ -1621,7 +1622,7 @@ Transform:
   - {fileID: 3579944208597986939}
   - {fileID: 2311048031036829693}
   m_Father: {fileID: 3796481901371442004}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -87.96972, y: -19.148733, z: 17.227415}
 --- !u!95 &6363844212688279151
 Animator:
   serializedVersion: 5

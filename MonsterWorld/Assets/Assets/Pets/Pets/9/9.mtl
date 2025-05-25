@@ -1,0 +1,14 @@
+newmtl Pcube201Mtl
+Material Color
+Ka 0.373615 0.368591 0.383775
+Kd 0.373615 0.368591 0.383775
+Ks 0.0322335 0.0318 0.03311 
+
+d 1
+
+Ns 255
+
+map_Ka Pcube201_diff.png
+map_Kd Pcube201_diff.png
+map_d Pcube201_diff.png
+

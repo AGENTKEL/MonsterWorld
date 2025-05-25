@@ -1,0 +1,18 @@
+{
+    "intExample": 5,
+    "strExample": "Hello!",
+    "boolExample": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "idSave": 106,
+    "coins": 3535,
+    "level": 30,
+    "xpToTheNextLevel": 39458,
+    "petIndex": 3,
+    "isPetBought": true,
+    "coinsRecord": 3625,
+    "timeRecord": 4071.140869140625
+}

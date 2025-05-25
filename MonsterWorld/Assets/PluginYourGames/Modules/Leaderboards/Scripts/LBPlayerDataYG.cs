@@ -14,7 +14,7 @@ namespace YG
         [Serializable]
         public struct TextLegasy
         {
-            public Text rank, name, score;
+            public TextMeshProUGUI rank, name, score;
         }
         public TextLegasy textLegasy;
 

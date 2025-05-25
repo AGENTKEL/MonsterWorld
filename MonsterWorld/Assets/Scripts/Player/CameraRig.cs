@@ -16,6 +16,8 @@ public class CameraRig : MonoBehaviour
     private Vector3 currentRotation;
     private Vector3 rotationSmoothVelocity;
 
+    public Player player;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -24,6 +26,8 @@ public class CameraRig : MonoBehaviour
 
     void LateUpdate()
     {
+        if (player.cursorVisible) return;
+        
         HandleRotation();
         FollowTarget();
     }

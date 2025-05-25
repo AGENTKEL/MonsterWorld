@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class LevelSystem : MonoBehaviour
 {
@@ -27,43 +28,79 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] private LevelObstacle _levelObstacleDesert;
     [SerializeField] private LevelObstacle _levelObstacleSnow;
 
+    public bool isGoldPet;
+    public bool isXpPet;
+
     private void Start()
     {
+        StartCoroutine(LoadStats());
         UpdateUI();
+    }
+
+    private IEnumerator LoadStats()
+    {
+        yield return new WaitForSeconds(0.5f);
+        money = YG2.saves.coins;
+        currentLevel = YG2.saves.level;
+        xpToNextLevel = YG2.saves.xpToTheNextLevel;
+        player.OnLevelUp(currentLevel);
+        UpdateUI();
+        CheckLocations();
     }
 
     public void AddXP(int amount)
     {
-        currentXP += amount;
+        if (isXpPet)
+            currentXP += amount + Mathf.RoundToInt(amount * 0.25f);
+        else
+            currentXP += amount;
 
         while (currentXP >= xpToNextLevel)
         {
             currentXP -= xpToNextLevel;
             currentLevel++;
             xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * xpIncreaseFactor);
+            YG2.saves.xpToTheNextLevel = xpToNextLevel;
+            YG2.saves.level = currentLevel;
+            YG2.SaveProgress();
 
             if (player != null)
             {
                 player.OnLevelUp(currentLevel);
-                if (currentLevel >= _levelObstacleDesert.levelToUnlock)
-                {
-                    _levelObstacleDesert.Interact();
-                }
-                
-                if (currentLevel >= _levelObstacleSnow.levelToUnlock)
-                {
-                    _levelObstacleSnow.Interact();
-                }
+                CheckLocations();
             }
         }
 
         UpdateUI();
     }
 
+    public void CheckLocations()
+    {
+        if (currentLevel >= _levelObstacleDesert.levelToUnlock)
+        {
+            _levelObstacleDesert.Interact();
+        }
+                
+        if (currentLevel >= _levelObstacleSnow.levelToUnlock)
+        {
+            _levelObstacleSnow.Interact();
+        }
+    }
+
     public void AddMoney(int amount)
     {
-        money += amount;
+        if (isGoldPet)
+            money += amount + Mathf.RoundToInt(amount * 0.25f);
+        else 
+            money += amount;
         UpdateMoneyUI();
+        if (YG2.saves.coinsRecord < money)
+        {
+            YG2.SetLeaderboard("MonsterGameLeaderBoardGoldenYG2", money);
+            YG2.saves.coinsRecord = money;
+        }
+        YG2.saves.coins = money;
+        YG2.SaveProgress();
     }
 
     public void SubtractMoney(int amount)
@@ -71,6 +108,8 @@ public class LevelSystem : MonoBehaviour
         money -= amount;
         if (money < 0) money = 0;
         UpdateMoneyUI();
+        YG2.saves.coins = money;
+        YG2.SaveProgress();
     }
 
     private void UpdateUI()

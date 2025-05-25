@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour
     public int currentHP;
     public int damage = 10;
     public float respawnDelay = 3f;
+    private float timeSinceLastDamage = 0f;
+    private float regenDelay = 5f;
+    private float regenRate = 0.05f; // 5% per second
+    private bool isRegenerating = false;
 
     [Header("UI")]
     public Slider hpSlider;
@@ -52,6 +56,7 @@ public class Enemy : MonoBehaviour
         if (isDead || player == null) return;
 
         attackTimer -= Time.deltaTime;
+        timeSinceLastDamage += Time.deltaTime;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
@@ -59,9 +64,14 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(PerformAttack());
         }
-        
+
         if (distanceToPlayer <= attackRange)
             RotateTowardsPlayer();
+
+        if (timeSinceLastDamage >= regenDelay && !isRegenerating && currentHP < maxHP)
+        {
+            StartCoroutine(RegenerateHP());
+        }
     }
 
     IEnumerator PerformAttack()
@@ -99,10 +109,33 @@ public class Enemy : MonoBehaviour
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHPUI();
 
+        timeSinceLastDamage = 0f; // Reset regen timer
+
         if (currentHP <= 0)
         {
             Die();
         }
+    }
+    
+    IEnumerator RegenerateHP()
+    {
+        isRegenerating = true;
+
+        while (currentHP < maxHP && timeSinceLastDamage >= regenDelay && !isDead)
+        {
+            int regenAmount = Mathf.CeilToInt(maxHP * regenRate);
+            currentHP += regenAmount;
+            currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+            UpdateHPUI();
+
+            yield return new WaitForSeconds(1f);
+
+            // Stop if took damage during regen
+            if (timeSinceLastDamage < regenDelay)
+                break;
+        }
+
+        isRegenerating = false;
     }
 
     void Die()

@@ -1046,7 +1046,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3950999949849741135}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.31042767, z: -0, w: 0.95059705}
+  m_LocalRotation: {x: 0, y: -0.31042752, z: 0, w: 0.9505971}
   m_LocalPosition: {x: -29, y: 3.55, z: 514.08}
   m_LocalScale: {x: 0.7000003, y: 0.7, z: 0.7000003}
   m_ConstrainProportionsScale: 1
@@ -1054,7 +1054,7 @@ Transform:
   - {fileID: 2268597311579283003}
   - {fileID: 20067079128288324}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 143.83, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -36.17, z: 0}
 --- !u!136 &5382235763662841807
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1094,9 +1094,9 @@ MonoBehaviour:
   enemySphere: {fileID: 3263622280611337685}
   attackRange: 3
   attackCooldown: 2
-  maxHP: 500
+  maxHP: 1500
   currentHP: 0
-  damage: 60
+  damage: 150
   respawnDelay: 5
   hpSlider: {fileID: 1320174685842689264}
   hpText: {fileID: 2788650261427725090}
@@ -1104,7 +1104,8 @@ MonoBehaviour:
   botUI: {fileID: 6365373561434047801}
   player: {fileID: 0}
   xpReward: 200
-  moneyReward: 20
+  moneyReward: 15
+  attackDelay: 0.6
 --- !u!114 &3263622280611337685
 MonoBehaviour:
   m_ObjectHideFlags: 0
