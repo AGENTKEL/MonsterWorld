@@ -20,6 +20,7 @@ public class Timer : MonoBehaviour
     {
         public Button button;
         public Image unlockImage;        // The image to activate when time is up
+        public TextMeshProUGUI countdownText;
         public float activationTime;     // Time (in seconds) after which the button becomes active
         public RewardType rewardType;
         public int rewardAmount;
@@ -38,6 +39,15 @@ public class Timer : MonoBehaviour
     
     [SerializeField] private float adTimer = 0f;
     private const float triggerInterval = 150f; // 2.5 minutes in seconds
+    
+    public GameObject countdownUI;
+    public TextMeshProUGUI countdownText;
+
+    private bool isAdCountingDown = false;
+    
+    [SerializeField] private GameObject newRewardNotification;
+    [SerializeField] private Button dismissNotificationButton;
+    private bool notificationShown = false;
 
     private void Start()
     {
@@ -52,11 +62,17 @@ public class Timer : MonoBehaviour
             if (btn.unlockImage != null)
                 btn.unlockImage.enabled = false;
         }
+
+        if (dismissNotificationButton != null)
+            dismissNotificationButton.onClick.AddListener(HideNewRewardNotification);
+
+        if (newRewardNotification != null)
+            newRewardNotification.SetActive(false);
     }
 
     private void Update()
     {
-        if (!isRunning) return;
+        if (!isRunning || isAdCountingDown) return;
 
         timer += Time.deltaTime;
         adTimer += Time.deltaTime;
@@ -67,23 +83,62 @@ public class Timer : MonoBehaviour
 
         foreach (var btn in buttons)
         {
-            if (!btn.isActivated && timer >= btn.activationTime && !btn.isBought)
+            if (!btn.isActivated && !btn.isBought)
             {
-                if (btn.button != null)
-                    btn.button.interactable = true;
+                float timeLeft = btn.activationTime - timer;
+                if (timeLeft <= 0f)
+                {
+                    if (btn.button != null)
+                        btn.button.interactable = true;
 
-                if (btn.unlockImage != null)
-                    btn.unlockImage.enabled = true;
+                    if (btn.unlockImage != null)
+                        btn.unlockImage.enabled = true;
 
-                btn.isActivated = true;
+                    if (btn.countdownText != null)
+                        btn.countdownText.text = "";
+
+                    btn.isActivated = true;
+
+                    // ✅ Show notification once (only the first time something activates)
+                    if (!notificationShown && newRewardNotification != null)
+                    {
+                        newRewardNotification.SetActive(true);
+                        notificationShown = true;
+                    }
+                }
+                else if (btn.countdownText != null)
+                {
+                    int minutesLeft = Mathf.FloorToInt(timeLeft / 60f);
+                    int secondsLeft = Mathf.FloorToInt(timeLeft % 60f);
+                    btn.countdownText.text = $"{minutesLeft}:{secondsLeft:00}";
+                }
             }
         }
 
         if (adTimer >= triggerInterval)
         {
             adTimer = 0f;
-            TriggerAd();
+            StartCoroutine(AdCountdownCoroutine(3f)); // Start 3-second countdown
         }
+    }
+    
+    private IEnumerator AdCountdownCoroutine(float countdownTime)
+    {
+        isAdCountingDown = true;
+        countdownUI.SetActive(true);
+
+        float timeLeft = countdownTime;
+        while (timeLeft > 0)
+        {
+            countdownText.text = $"{Mathf.CeilToInt(timeLeft)}";
+            yield return new WaitForSeconds(1f);
+            timeLeft -= 1f;
+        }
+
+        countdownUI.SetActive(false);
+        isAdCountingDown = false;
+
+        TriggerAd();
     }
     
     private void TriggerAd()
@@ -136,5 +191,11 @@ public class Timer : MonoBehaviour
             YG2.SetLBTimeConvert("MonsterGameLeaderBoardTimeYG2", timer);
             YG2.saves.timeRecord = timer;
         }
+    }
+    
+    public void HideNewRewardNotification()
+    {
+        if (newRewardNotification != null)
+            newRewardNotification.SetActive(false);
     }
 }

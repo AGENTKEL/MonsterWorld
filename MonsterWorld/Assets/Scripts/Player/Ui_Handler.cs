@@ -53,4 +53,12 @@ public class Ui_Handler : MonoBehaviour
         petShopUI.SetActive(false);
         wheelUI.SetActive(false);
     }
+    
+    public void Close(GameObject ui)
+    {
+        if (ui != null)
+        {
+            ui.SetActive(false);
+        }
+    }
 }

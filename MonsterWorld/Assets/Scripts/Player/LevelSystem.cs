@@ -28,8 +28,12 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] private LevelObstacle _levelObstacleDesert;
     [SerializeField] private LevelObstacle _levelObstacleSnow;
 
-    public bool isGoldPet;
-    public bool isXpPet;
+    [HideInInspector] public float xpBonusMultiplier = 1f;
+    
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip levelUpSound;
+    
 
     private void Start()
     {
@@ -50,10 +54,8 @@ public class LevelSystem : MonoBehaviour
 
     public void AddXP(int amount)
     {
-        if (isXpPet)
-            currentXP += amount + Mathf.RoundToInt(amount * 0.25f);
-        else
-            currentXP += amount;
+        int finalAmount = Mathf.RoundToInt(amount * xpBonusMultiplier);
+        currentXP += finalAmount;
 
         while (currentXP >= xpToNextLevel)
         {
@@ -66,11 +68,16 @@ public class LevelSystem : MonoBehaviour
 
             if (player != null)
             {
-                player.OnLevelUp(currentLevel);
                 CheckLocations();
+                UpdateUI();
+                player.OnLevelUp(currentLevel);
+                if (audioSource != null && levelUpSound != null)
+                {
+                    audioSource.PlayOneShot(levelUpSound);
+                }
             }
         }
-
+        
         UpdateUI();
     }
 
@@ -89,10 +96,7 @@ public class LevelSystem : MonoBehaviour
 
     public void AddMoney(int amount)
     {
-        if (isGoldPet)
-            money += amount + Mathf.RoundToInt(amount * 0.25f);
-        else 
-            money += amount;
+        money += amount;
         UpdateMoneyUI();
         if (YG2.saves.coinsRecord < money)
         {
@@ -132,6 +136,7 @@ public class LevelSystem : MonoBehaviour
 
         UpdateMoneyUI();
     }
+    
 
     private void UpdateMoneyUI()
     {

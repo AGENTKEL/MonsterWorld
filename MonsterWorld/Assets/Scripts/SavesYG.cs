@@ -12,5 +12,6 @@ namespace YG
 
         public int coinsRecord = 0;
         public float timeRecord = 0;
+        public bool[] petButtonUnlocked = new bool[6];
     }
 }

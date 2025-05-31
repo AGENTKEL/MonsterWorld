@@ -105,19 +105,19 @@ public class LuckyWheel : MonoBehaviour
                 levelSystem.AddXP(200);
                 break;
             case RewardType.Pet3:
-                petManager.TryGetPet(3);
+                petManager.UnlockRandomPetByProbability();
                 break;
             case RewardType.Money500:
-                levelSystem.AddMoney(500);
+                levelSystem.AddMoney(25);
                 break;
             case RewardType.XP500:
                 levelSystem.AddXP(500);
                 break;
             case RewardType.Money250:
-                levelSystem.AddMoney(250);
+                levelSystem.AddMoney(50);
                 break;
             case RewardType.Pet0:
-                petManager.TryGetPet(0);
+                petManager.UnlockRandomPetByProbability();
                 break;
             case RewardType.XP50:
                 levelSystem.AddXP(50);

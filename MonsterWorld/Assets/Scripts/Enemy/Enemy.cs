@@ -43,12 +43,16 @@ public class Enemy : MonoBehaviour
 
     public float attackDelay = 0.3f;
 
+    private Canvas _canvas;
+
     void Start()
     {
         currentHP = maxHP;
         UpdateHPUI();
         player = FindFirstObjectByType<Player>().transform;
         levelSystem = player.GetComponent<LevelSystem>();
+        _canvas = GetComponentInChildren<Canvas>();
+        _canvas.enabled = false;
     }
 
     void Update()
@@ -78,6 +82,7 @@ public class Enemy : MonoBehaviour
     {
         isAttacking = true;
         animator.SetTrigger("Attack");
+        _canvas.enabled = true;
         yield return new WaitForSeconds(attackDelay); // Sync with animation if needed
 
         if (enemySphere != null)

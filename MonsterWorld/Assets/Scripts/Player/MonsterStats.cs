@@ -6,6 +6,7 @@ public class MonsterStats : MonoBehaviour
 {
     public int baseHP = 100;
     public int baseDamage = 10;
+    public int baseMoveSpeed = 5;
 
     [Tooltip("HP growth rate per level in % (e.g., 0.15 = 15%)")]
     public float hpGrowthPercent = 0.15f;

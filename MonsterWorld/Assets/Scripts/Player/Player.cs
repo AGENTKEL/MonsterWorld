@@ -1,5 +1,4 @@
- using System;
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
  using TMPro;
  using UnityEngine;
@@ -13,6 +12,7 @@ using System.Collections.Generic;
     public float jumpHeight = 2f;
     public CharacterController characterController;
     public Timer timer;
+    public PetManager _petManager;
     public Transform cameraRig;
 
     [Header("Animation")]
@@ -54,6 +54,11 @@ using System.Collections.Generic;
     public Transform respawnPoint3;
     private float timeSinceLastDamage = 0f;
     private bool isRegenerating = false;
+    
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip[] attackSounds;
+    public AudioClip deathSound;
 
     private void Start()
     {
@@ -125,7 +130,16 @@ using System.Collections.Generic;
             cursorVisible = !cursorVisible;
             Cursor.visible = cursorVisible;
             Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+            animator.SetBool("Walk", false);
         }
+    }
+    
+    public void SetCursorToggle()
+    {
+        cursorVisible = !cursorVisible;
+        Cursor.visible = cursorVisible;
+        Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+        animator.SetBool("Walk", false);
     }
 
     void ApplyGravity()
@@ -141,13 +155,41 @@ using System.Collections.Generic;
 
     void HandleAttack()
     {
-        if (Input.GetMouseButtonDown(0) && interactionCooldownTimer <= 0f && !isAttacking)
+        // Hold to attack
+        if (Input.GetMouseButton(0) && interactionCooldownTimer <= 0f && !isAttacking)
         {
             animator.SetTrigger("Attack");
             StartCoroutine(DelayedInteraction());
         }
-
     }
+    
+    IEnumerator DelayedInteraction()
+    {
+        isAttacking = true;
+        
+
+        // Wait for animation delay before executing the attack logic
+        yield return new WaitForSeconds(attackDelay);
+
+        if (interactionSphere != null)
+        {
+            interactionSphere.StartInteractionSphere(damage);
+            interactionCooldownTimer = interactionSphere.interactionCooldown;
+        }
+        
+        // Play random attack sound
+        if (attackSounds != null && attackSounds.Length > 0 && audioSource != null)
+        {
+            AudioClip clip = attackSounds[Random.Range(0, attackSounds.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+
+        // Wait for the cooldown before allowing another attack
+        yield return new WaitForSeconds(interactionCooldownTimer);
+
+        isAttacking = false;
+    }
+
     
     public void OnLevelUp(int newLevel)
     {
@@ -178,24 +220,10 @@ using System.Collections.Generic;
             currentHP = maxHP;
             damage = monsterStats.currentDamage;
             UpdateHPUI();
+            _petManager.UpdatePetBuff();
         }
     }
-    
-    IEnumerator DelayedInteraction()
-    {
-        isAttacking = true;
-        
-        yield return new WaitForSeconds(attackDelay);
 
-        if (interactionSphere != null)
-        {
-            interactionSphere.StartInteractionSphere(damage);
-            interactionCooldownTimer = interactionSphere.interactionCooldown;
-        }
-
-        isAttacking = false;
-    }
-    
     public void TakeDamage(int amount)
     {
         if (currentHP <= 0) return;
@@ -250,6 +278,11 @@ using System.Collections.Generic;
         characterController.enabled = false;
         isDead = true;
         StartCoroutine(Respawn());
+        
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
     }
 
     IEnumerator Respawn()

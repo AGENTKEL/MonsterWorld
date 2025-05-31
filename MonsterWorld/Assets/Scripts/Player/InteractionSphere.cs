@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InteractionSphere : MonoBehaviour {
@@ -22,6 +23,9 @@ public class InteractionSphere : MonoBehaviour {
     public int sphereDamage = 10;
 
     [SerializeField] private LevelSystem _levelSystem;
+    
+    [Header("Floating Text")]
+    public GameObject floatingTextPrefab;
 
     void Update() {
         if (isGrowing) UpdateSphere();
@@ -90,26 +94,34 @@ public class InteractionSphere : MonoBehaviour {
         Collider[] colliders = Physics.OverlapSphere(sphere.transform.position, currentRadius);
         foreach (Collider col in colliders) {
             if (col.CompareTag("Food")) {
-                col.GetComponent<Food>()?.TakeDamage(sphereDamage);
-                hasInteracted = true;
-                StartCoroutine(ResetInteraction());
-                break;
+                Food food = col.GetComponent<Food>();
+                if (food != null && !IsFoodDead(food)) {
+                    food.TakeDamage(sphereDamage);
+                    ShowFloatingText(col.transform.position, sphereDamage);
+                    hasInteracted = true;
+                    StartCoroutine(ResetInteraction());
+                    break;
+                }
             }
-            
+
             if (col.CompareTag("Enemy")) {
-                col.GetComponent<Enemy>()?.TakeDamage(sphereDamage);
-                hasInteracted = true;
-                StartCoroutine(ResetInteraction());
-                break;
+                Enemy enemy = col.GetComponent<Enemy>();
+                if (enemy != null && !IsEnemyDead(enemy)) {
+                    enemy.TakeDamage(sphereDamage);
+                    ShowFloatingText(col.transform.position, sphereDamage);
+                    hasInteracted = true;
+                    StartCoroutine(ResetInteraction());
+                    break;
+                }
             }
-            
+
             if (col.CompareTag("Buy")) {
                 col.GetComponent<MoneyInteract>()?.Interact(_levelSystem);
                 hasInteracted = true;
                 StartCoroutine(ResetInteraction());
                 break;
             }
-            
+
             if (col.CompareTag("Chest")) {
                 col.GetComponent<Chest>()?.Interact(_levelSystem);
                 hasInteracted = true;
@@ -117,6 +129,48 @@ public class InteractionSphere : MonoBehaviour {
                 break;
             }
         }
+    }
+    
+    bool IsFoodDead(Food food) {
+        return food == null || (bool)food.GetType()
+            .GetField("isDead", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.GetValue(food);
+    }
+
+    bool IsEnemyDead(Enemy enemy) {
+        return enemy == null || (bool)enemy.GetType()
+            .GetField("isDead", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.GetValue(enemy);
+    }
+    
+    void ShowFloatingText(Vector3 worldPosition, int text) {
+        if (floatingTextPrefab == null) return;
+
+        GameObject textObj = Instantiate(floatingTextPrefab, worldPosition + Vector3.up * 1.5f, Quaternion.identity);
+        textObj.GetComponentInChildren<TextMeshProUGUI>().text = $"-{text.ToString()}";
+        StartCoroutine(AnimateFloatingText(textObj));
+    }
+    
+    IEnumerator AnimateFloatingText(GameObject textObj) {
+        float duration = 1f;
+        float elapsed = 0f;
+        Vector3 startPos = textObj.transform.position;
+        Vector3 endPos = startPos + Vector3.up * 1.5f;
+
+        CanvasGroup canvasGroup = textObj.GetComponent<CanvasGroup>();
+        if (canvasGroup == null) canvasGroup = textObj.AddComponent<CanvasGroup>();
+
+        while (elapsed < duration) {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            textObj.transform.position = Vector3.Lerp(startPos, endPos, t);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            yield return null;
+        }
+
+        Destroy(textObj);
     }
 
     IEnumerator ResetInteraction() {
