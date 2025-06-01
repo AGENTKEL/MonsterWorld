@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-#if TMP_YG2
 using TMPro;
+#if TMP_YG2
 #endif
 
 namespace YG
