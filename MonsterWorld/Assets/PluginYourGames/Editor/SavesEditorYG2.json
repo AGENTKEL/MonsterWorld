@@ -7,20 +7,20 @@
         false,
         false
     ],
-    "idSave": 29,
-    "coins": 25,
-    "level": 28,
-    "xpToTheNextLevel": 41272,
-    "petIndex": 1,
-    "isPetBought": false,
-    "coinsRecord": 25,
-    "timeRecord": 169.2794647216797,
+    "idSave": 89,
+    "coins": 8515,
+    "level": 26,
+    "xpToTheNextLevel": 12916,
+    "petIndex": 5,
+    "isPetBought": true,
+    "coinsRecord": 8815,
+    "timeRecord": 84.64744567871094,
     "petButtonUnlocked": [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
     ]
 }

@@ -95,27 +95,30 @@ using System.Collections.Generic;
     void HandleMovement()
     {
         if (cursorVisible) return;
-        
+
         isGrounded = characterController.isGrounded;
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
         Vector3 input = new Vector3(h, 0f, v).normalized;
 
         bool isWalking = input.magnitude >= 0.1f;
         animator.SetBool("Walk", isWalking);
 
+        Vector3 moveDir = Vector3.zero;
+
         if (isWalking)
         {
-            Vector3 moveDir = cameraRig.forward * input.z + cameraRig.right * input.x;
+            moveDir = cameraRig.forward * input.z + cameraRig.right * input.x;
             moveDir.y = 0f;
             moveDir.Normalize();
-
-            characterController.Move(moveDir * moveSpeed * Time.deltaTime);
 
             Quaternion targetRot = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 10f);
         }
+
+        // Always call Move (even if moveDir is zero)
+        characterController.Move(moveDir * moveSpeed * Time.deltaTime);
 
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
@@ -328,6 +331,16 @@ using System.Collections.Generic;
         if (hpText != null)
         {
             hpText.text = $"{currentHP}/{maxHP}";
+        }
+    }
+    
+    public void BuyPet(int price)
+    {
+        if (levelSystem.money >= price)
+        {
+            levelSystem.SubtractMoney(price);
+
+            _petManager.UnlockRandomPetByProbability();
         }
     }
 }

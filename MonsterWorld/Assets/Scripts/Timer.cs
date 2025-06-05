@@ -20,6 +20,7 @@ public class Timer : MonoBehaviour
     {
         public Button button;
         public Image unlockImage;        // The image to activate when time is up
+        public GameObject claimButton;
         public TextMeshProUGUI countdownText;
         public float activationTime;     // Time (in seconds) after which the button becomes active
         public RewardType rewardType;
@@ -56,7 +57,16 @@ public class Timer : MonoBehaviour
             if (btn.button != null)
             {
                 btn.button.interactable = false;
+                btn.claimButton.SetActive(false);
                 btn.button.onClick.AddListener(() => OnButtonPressed(btn));
+                if (btn.claimButton != null)
+                {
+                    Button claimBtnComponent = btn.claimButton.GetComponent<Button>();
+                    if (claimBtnComponent != null)
+                    {
+                        claimBtnComponent.onClick.AddListener(() => OnButtonPressed(btn));
+                    }
+                }
             }
 
             if (btn.unlockImage != null)
@@ -89,7 +99,10 @@ public class Timer : MonoBehaviour
                 if (timeLeft <= 0f)
                 {
                     if (btn.button != null)
+                    {
                         btn.button.interactable = true;
+                        btn.claimButton.SetActive(true);
+                    }
 
                     if (btn.unlockImage != null)
                         btn.unlockImage.enabled = true;
@@ -165,8 +178,11 @@ public class Timer : MonoBehaviour
         // Disable the button again
         btn.isBought = true;
         btn.button.interactable = false;
+        btn.claimButton.SetActive(false);
         if (btn.unlockImage != null)
             btn.unlockImage.enabled = false;
+        
+        btn.claimButton.SetActive(false);
 
         Debug.Log($"Button bought. Granted {btn.rewardAmount} {btn.rewardType}");
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -25,6 +26,7 @@ public class PetManager : MonoBehaviour
         public GameObject petObject;
         public int cost;
         public Image boughtImage;
+        public Image petImage;
         public bool isBought;
         public Button petButton;
 
@@ -47,8 +49,25 @@ public class PetManager : MonoBehaviour
     
     private float[] unlockProbabilities = new float[] { 0.3f, 0.25f, 0.2f, 0.15f, 0.07f, 0.03f };
     
-    public GameObject newPetUnlockedImage; // ✅ Just the Image component
+    public GameObject newPetUnlockedImage;
     public Button acknowledgeButton;
+    
+    
+    [Header("Pet Lootbox")]
+    public GameObject unlockedPetDisplay;
+    public Image unlockedPetImageDisplay; // UI Image for showing the unlocked pet
+    public TextMeshProUGUI unlockedPetNameDisplay; // Pet name text (use TextMeshProUGUI)
+    public Button buyRandomPetButton;
+    
+    private Dictionary<PetRarity, float> rarityChances = new Dictionary<PetRarity, float>
+    {
+        { PetRarity.Common, 0.8f },
+        { PetRarity.Uncommon, 0.6f },
+        { PetRarity.Rare, 0.4f },
+        { PetRarity.Epic, 0.2f },
+        { PetRarity.Legendary, 0.1f },
+        { PetRarity.Mythic, 0.05f }
+    };
 
     private void Start()
     {
@@ -71,6 +90,7 @@ public class PetManager : MonoBehaviour
         {
             StartCoroutine(LoadStats());
         }
+        
     }
     
     private IEnumerator LoadStats()
@@ -81,46 +101,39 @@ public class PetManager : MonoBehaviour
     
     public void UnlockRandomPetByProbability()
     {
-        // Step 1: Build a list of locked pet indexes and their probabilities
-        List<int> lockedIndexes = new List<int>();
-        List<float> lockedProbabilities = new List<float>();
+        List<int> eligibleIndexes = new List<int>();
+        List<float> weightedChances = new List<float>();
 
         for (int i = 0; i < pets.Length; i++)
         {
             if (!pets[i].petButton.interactable)
             {
-                lockedIndexes.Add(i);
-                lockedProbabilities.Add(unlockProbabilities[i]);
+                eligibleIndexes.Add(i);
+                weightedChances.Add(rarityChances[pets[i].rarity]);
             }
         }
 
-        // Step 2: Check if all pets are unlocked
-        if (lockedIndexes.Count == 0)
+        if (eligibleIndexes.Count == 0)
         {
-            Debug.Log("All pets are already unlocked.");
+            Debug.Log("All pets unlocked!");
             return;
         }
 
-        // Step 3: Weighted random selection
-        float total = 0f;
-        foreach (float prob in lockedProbabilities)
-            total += prob;
-
+        float total = weightedChances.Sum();
         float rand = UnityEngine.Random.value * total;
-        float cumulative = 0f;
 
-        for (int i = 0; i < lockedIndexes.Count; i++)
+        float cumulative = 0f;
+        for (int i = 0; i < eligibleIndexes.Count; i++)
         {
-            cumulative += lockedProbabilities[i];
+            cumulative += weightedChances[i];
             if (rand <= cumulative)
             {
-                UnlockPetButton(lockedIndexes[i]);
+                UnlockPetButton(eligibleIndexes[i]);
                 return;
             }
         }
 
-        // Fallback (shouldn't hit this if logic is correct)
-        UnlockPetButton(lockedIndexes[lockedIndexes.Count - 1]);
+        UnlockPetButton(eligibleIndexes.Last()); // Fallback
     }
     
     public void UnlockPetButton(int index)
@@ -132,6 +145,7 @@ public class PetManager : MonoBehaviour
         }
 
         PetData pet = pets[index];
+
         if (pet.petButton != null)
         {
             pet.petButton.interactable = true;
@@ -139,12 +153,24 @@ public class PetManager : MonoBehaviour
             // Save to YG2
             YG2.saves.petButtonUnlocked[index] = true;
             YG2.SaveProgress();
-
-            Debug.Log($"Unlocked pet at index {index}");
-            
-            if (newPetUnlockedImage != null)
-                newPetUnlockedImage.SetActive(true);
         }
+        unlockedPetDisplay.SetActive(true);
+
+        if (newPetUnlockedImage != null)
+            newPetUnlockedImage.SetActive(true);
+
+        if (unlockedPetImageDisplay != null)
+            unlockedPetImageDisplay.sprite = pet.petImage.sprite;
+        
+
+        if (unlockedPetNameDisplay != null)
+            unlockedPetNameDisplay.text = pet.petObject.name;
+        
+        
+        if (AreAllPetsUnlocked() && buyRandomPetButton != null)
+            buyRandomPetButton.gameObject.SetActive(false);
+
+        Debug.Log($"Unlocked pet: {pet.petObject.name} at index {index}");
     }
 
 
@@ -232,6 +258,9 @@ public class PetManager : MonoBehaviour
         YG2.SaveProgress();
 
         ApplyPetBuff(index);
+        // Hide button if all are already unlocked
+        if (AreAllPetsUnlocked() && buyRandomPetButton != null)
+            buyRandomPetButton.gameObject.SetActive(false);
     }
 
     private void ApplyPetBuff(int index)
@@ -306,5 +335,15 @@ public class PetManager : MonoBehaviour
     {
         if (newPetUnlockedImage != null)
             newPetUnlockedImage.SetActive(false);
+    }
+    
+    private bool AreAllPetsUnlocked()
+    {
+        for (int i = 0; i < pets.Length; i++)
+        {
+            if (!pets[i].petButton.interactable)
+                return false;
+        }
+        return true;
     }
 }
