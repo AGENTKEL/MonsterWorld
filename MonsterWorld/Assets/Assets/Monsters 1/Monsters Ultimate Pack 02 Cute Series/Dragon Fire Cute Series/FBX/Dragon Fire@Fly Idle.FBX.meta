@@ -1,184 +1,530 @@
 fileFormatVersion: 2
 guid: dd953e7476ae8234d96d2dfb7d9ab2f5
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Dragon Fire
-    100002: //RootNode
-    100004: Rig
-    100006: RigHead
-    100008: RigHeadGizmo
-    100010: RigJaw
-    100012: RigJawGizmo
-    100014: RigLArm1
-    100016: RigLArm1Gizmo
-    100018: RigLArm2
-    100020: RigLArm2Gizmo
-    100022: RigLArmIndex1
-    100024: RigLArmIndex2
-    100026: RigLArmIndex3
-    100028: RigLArmPalm
-    100030: RigLArmPalmGizmo
-    100032: RigLArmPinky1
-    100034: RigLArmPinky2
-    100036: RigLArmPinky3
-    100038: RigLArmThumb1
-    100040: RigLArmThumb2
-    100042: RigLArmThumb3
-    100044: RigLLeg1
-    100046: RigLLeg2
-    100048: RigLLegAnkle
-    100050: RigLLegPlatform
-    100052: RigLLegToes1
-    100054: RigLLegToes2
-    100056: RigLWing01
-    100058: RigLWing01Gizmo
-    100060: RigLWing02
-    100062: RigLWing02Gizmo
-    100064: RigLWing03
-    100066: RigLWing03Gizmo
-    100068: RigNeck
-    100070: RigPelvis
-    100072: RigPelvisGizmo
-    100074: RigRArm1
-    100076: RigRArm1Gizmo
-    100078: RigRArm2
-    100080: RigRArm2Gizmo
-    100082: RigRArmIndex1
-    100084: RigRArmIndex2
-    100086: RigRArmIndex3
-    100088: RigRArmPalm
-    100090: RigRArmPalmGizmo
-    100092: RigRArmPinky1
-    100094: RigRArmPinky2
-    100096: RigRArmPinky3
-    100098: RigRArmThumb1
-    100100: RigRArmThumb2
-    100102: RigRArmThumb3
-    100104: RigRibcage
-    100106: RigRibcageGizmo
-    100108: RigRLeg1
-    100110: RigRLeg2
-    100112: RigRLegAnkle
-    100114: RigRLegPlatform
-    100116: RigRLegToes1
-    100118: RigRLegToes2
-    100120: RigRWing01
-    100122: RigRWing01Gizmo
-    100124: RigRWing02
-    100126: RigRWing02Gizmo
-    100128: RigRWing03
-    100130: RigRWing03Gizmo
-    100132: RigSpine1
-    100134: RigSpine2
-    100136: RigTail1
-    100138: RigTail1Gizmo
-    100140: RigTail2
-    100142: RigTail2Gizmo
-    100144: RigTail3
-    100146: RigTail3Gizmo
-    100148: RigTail4
-    100150: RigTail4Gizmo
-    100152: RigTail5
-    100154: RigTail5Gizmo
-    100156: RigTail6
-    100158: RigTail6Gizmo
-    100160: RigTail7
-    100162: RigTail7Gizmo
-    100164: RigTail8
-    100166: RigTail8Gizmo
-    400000: Dragon Fire
-    400002: //RootNode
-    400004: Rig
-    400006: RigHead
-    400008: RigHeadGizmo
-    400010: RigJaw
-    400012: RigJawGizmo
-    400014: RigLArm1
-    400016: RigLArm1Gizmo
-    400018: RigLArm2
-    400020: RigLArm2Gizmo
-    400022: RigLArmIndex1
-    400024: RigLArmIndex2
-    400026: RigLArmIndex3
-    400028: RigLArmPalm
-    400030: RigLArmPalmGizmo
-    400032: RigLArmPinky1
-    400034: RigLArmPinky2
-    400036: RigLArmPinky3
-    400038: RigLArmThumb1
-    400040: RigLArmThumb2
-    400042: RigLArmThumb3
-    400044: RigLLeg1
-    400046: RigLLeg2
-    400048: RigLLegAnkle
-    400050: RigLLegPlatform
-    400052: RigLLegToes1
-    400054: RigLLegToes2
-    400056: RigLWing01
-    400058: RigLWing01Gizmo
-    400060: RigLWing02
-    400062: RigLWing02Gizmo
-    400064: RigLWing03
-    400066: RigLWing03Gizmo
-    400068: RigNeck
-    400070: RigPelvis
-    400072: RigPelvisGizmo
-    400074: RigRArm1
-    400076: RigRArm1Gizmo
-    400078: RigRArm2
-    400080: RigRArm2Gizmo
-    400082: RigRArmIndex1
-    400084: RigRArmIndex2
-    400086: RigRArmIndex3
-    400088: RigRArmPalm
-    400090: RigRArmPalmGizmo
-    400092: RigRArmPinky1
-    400094: RigRArmPinky2
-    400096: RigRArmPinky3
-    400098: RigRArmThumb1
-    400100: RigRArmThumb2
-    400102: RigRArmThumb3
-    400104: RigRibcage
-    400106: RigRibcageGizmo
-    400108: RigRLeg1
-    400110: RigRLeg2
-    400112: RigRLegAnkle
-    400114: RigRLegPlatform
-    400116: RigRLegToes1
-    400118: RigRLegToes2
-    400120: RigRWing01
-    400122: RigRWing01Gizmo
-    400124: RigRWing02
-    400126: RigRWing02Gizmo
-    400128: RigRWing03
-    400130: RigRWing03Gizmo
-    400132: RigSpine1
-    400134: RigSpine2
-    400136: RigTail1
-    400138: RigTail1Gizmo
-    400140: RigTail2
-    400142: RigTail2Gizmo
-    400144: RigTail3
-    400146: RigTail3Gizmo
-    400148: RigTail4
-    400150: RigTail4Gizmo
-    400152: RigTail5
-    400154: RigTail5Gizmo
-    400156: RigTail6
-    400158: RigTail6Gizmo
-    400160: RigTail7
-    400162: RigTail7Gizmo
-    400164: RigTail8
-    400166: RigTail8Gizmo
-    2100000: 'Material #2'
-    4300000: Dragon Fire
-    7400000: Fly Idle
-    9500000: //RootNode
-    13700000: Dragon Fire
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Dragon Fire
+  - first:
+      1: 100002
+    second: //RootNode
+  - first:
+      1: 100004
+    second: Rig
+  - first:
+      1: 100006
+    second: RigHead
+  - first:
+      1: 100008
+    second: RigHeadGizmo
+  - first:
+      1: 100010
+    second: RigJaw
+  - first:
+      1: 100012
+    second: RigJawGizmo
+  - first:
+      1: 100014
+    second: RigLArm1
+  - first:
+      1: 100016
+    second: RigLArm1Gizmo
+  - first:
+      1: 100018
+    second: RigLArm2
+  - first:
+      1: 100020
+    second: RigLArm2Gizmo
+  - first:
+      1: 100022
+    second: RigLArmIndex1
+  - first:
+      1: 100024
+    second: RigLArmIndex2
+  - first:
+      1: 100026
+    second: RigLArmIndex3
+  - first:
+      1: 100028
+    second: RigLArmPalm
+  - first:
+      1: 100030
+    second: RigLArmPalmGizmo
+  - first:
+      1: 100032
+    second: RigLArmPinky1
+  - first:
+      1: 100034
+    second: RigLArmPinky2
+  - first:
+      1: 100036
+    second: RigLArmPinky3
+  - first:
+      1: 100038
+    second: RigLArmThumb1
+  - first:
+      1: 100040
+    second: RigLArmThumb2
+  - first:
+      1: 100042
+    second: RigLArmThumb3
+  - first:
+      1: 100044
+    second: RigLLeg1
+  - first:
+      1: 100046
+    second: RigLLeg2
+  - first:
+      1: 100048
+    second: RigLLegAnkle
+  - first:
+      1: 100050
+    second: RigLLegPlatform
+  - first:
+      1: 100052
+    second: RigLLegToes1
+  - first:
+      1: 100054
+    second: RigLLegToes2
+  - first:
+      1: 100056
+    second: RigLWing01
+  - first:
+      1: 100058
+    second: RigLWing01Gizmo
+  - first:
+      1: 100060
+    second: RigLWing02
+  - first:
+      1: 100062
+    second: RigLWing02Gizmo
+  - first:
+      1: 100064
+    second: RigLWing03
+  - first:
+      1: 100066
+    second: RigLWing03Gizmo
+  - first:
+      1: 100068
+    second: RigNeck
+  - first:
+      1: 100070
+    second: RigPelvis
+  - first:
+      1: 100072
+    second: RigPelvisGizmo
+  - first:
+      1: 100074
+    second: RigRArm1
+  - first:
+      1: 100076
+    second: RigRArm1Gizmo
+  - first:
+      1: 100078
+    second: RigRArm2
+  - first:
+      1: 100080
+    second: RigRArm2Gizmo
+  - first:
+      1: 100082
+    second: RigRArmIndex1
+  - first:
+      1: 100084
+    second: RigRArmIndex2
+  - first:
+      1: 100086
+    second: RigRArmIndex3
+  - first:
+      1: 100088
+    second: RigRArmPalm
+  - first:
+      1: 100090
+    second: RigRArmPalmGizmo
+  - first:
+      1: 100092
+    second: RigRArmPinky1
+  - first:
+      1: 100094
+    second: RigRArmPinky2
+  - first:
+      1: 100096
+    second: RigRArmPinky3
+  - first:
+      1: 100098
+    second: RigRArmThumb1
+  - first:
+      1: 100100
+    second: RigRArmThumb2
+  - first:
+      1: 100102
+    second: RigRArmThumb3
+  - first:
+      1: 100104
+    second: RigRibcage
+  - first:
+      1: 100106
+    second: RigRibcageGizmo
+  - first:
+      1: 100108
+    second: RigRLeg1
+  - first:
+      1: 100110
+    second: RigRLeg2
+  - first:
+      1: 100112
+    second: RigRLegAnkle
+  - first:
+      1: 100114
+    second: RigRLegPlatform
+  - first:
+      1: 100116
+    second: RigRLegToes1
+  - first:
+      1: 100118
+    second: RigRLegToes2
+  - first:
+      1: 100120
+    second: RigRWing01
+  - first:
+      1: 100122
+    second: RigRWing01Gizmo
+  - first:
+      1: 100124
+    second: RigRWing02
+  - first:
+      1: 100126
+    second: RigRWing02Gizmo
+  - first:
+      1: 100128
+    second: RigRWing03
+  - first:
+      1: 100130
+    second: RigRWing03Gizmo
+  - first:
+      1: 100132
+    second: RigSpine1
+  - first:
+      1: 100134
+    second: RigSpine2
+  - first:
+      1: 100136
+    second: RigTail1
+  - first:
+      1: 100138
+    second: RigTail1Gizmo
+  - first:
+      1: 100140
+    second: RigTail2
+  - first:
+      1: 100142
+    second: RigTail2Gizmo
+  - first:
+      1: 100144
+    second: RigTail3
+  - first:
+      1: 100146
+    second: RigTail3Gizmo
+  - first:
+      1: 100148
+    second: RigTail4
+  - first:
+      1: 100150
+    second: RigTail4Gizmo
+  - first:
+      1: 100152
+    second: RigTail5
+  - first:
+      1: 100154
+    second: RigTail5Gizmo
+  - first:
+      1: 100156
+    second: RigTail6
+  - first:
+      1: 100158
+    second: RigTail6Gizmo
+  - first:
+      1: 100160
+    second: RigTail7
+  - first:
+      1: 100162
+    second: RigTail7Gizmo
+  - first:
+      1: 100164
+    second: RigTail8
+  - first:
+      1: 100166
+    second: RigTail8Gizmo
+  - first:
+      4: 400000
+    second: Dragon Fire
+  - first:
+      4: 400002
+    second: //RootNode
+  - first:
+      4: 400004
+    second: Rig
+  - first:
+      4: 400006
+    second: RigHead
+  - first:
+      4: 400008
+    second: RigHeadGizmo
+  - first:
+      4: 400010
+    second: RigJaw
+  - first:
+      4: 400012
+    second: RigJawGizmo
+  - first:
+      4: 400014
+    second: RigLArm1
+  - first:
+      4: 400016
+    second: RigLArm1Gizmo
+  - first:
+      4: 400018
+    second: RigLArm2
+  - first:
+      4: 400020
+    second: RigLArm2Gizmo
+  - first:
+      4: 400022
+    second: RigLArmIndex1
+  - first:
+      4: 400024
+    second: RigLArmIndex2
+  - first:
+      4: 400026
+    second: RigLArmIndex3
+  - first:
+      4: 400028
+    second: RigLArmPalm
+  - first:
+      4: 400030
+    second: RigLArmPalmGizmo
+  - first:
+      4: 400032
+    second: RigLArmPinky1
+  - first:
+      4: 400034
+    second: RigLArmPinky2
+  - first:
+      4: 400036
+    second: RigLArmPinky3
+  - first:
+      4: 400038
+    second: RigLArmThumb1
+  - first:
+      4: 400040
+    second: RigLArmThumb2
+  - first:
+      4: 400042
+    second: RigLArmThumb3
+  - first:
+      4: 400044
+    second: RigLLeg1
+  - first:
+      4: 400046
+    second: RigLLeg2
+  - first:
+      4: 400048
+    second: RigLLegAnkle
+  - first:
+      4: 400050
+    second: RigLLegPlatform
+  - first:
+      4: 400052
+    second: RigLLegToes1
+  - first:
+      4: 400054
+    second: RigLLegToes2
+  - first:
+      4: 400056
+    second: RigLWing01
+  - first:
+      4: 400058
+    second: RigLWing01Gizmo
+  - first:
+      4: 400060
+    second: RigLWing02
+  - first:
+      4: 400062
+    second: RigLWing02Gizmo
+  - first:
+      4: 400064
+    second: RigLWing03
+  - first:
+      4: 400066
+    second: RigLWing03Gizmo
+  - first:
+      4: 400068
+    second: RigNeck
+  - first:
+      4: 400070
+    second: RigPelvis
+  - first:
+      4: 400072
+    second: RigPelvisGizmo
+  - first:
+      4: 400074
+    second: RigRArm1
+  - first:
+      4: 400076
+    second: RigRArm1Gizmo
+  - first:
+      4: 400078
+    second: RigRArm2
+  - first:
+      4: 400080
+    second: RigRArm2Gizmo
+  - first:
+      4: 400082
+    second: RigRArmIndex1
+  - first:
+      4: 400084
+    second: RigRArmIndex2
+  - first:
+      4: 400086
+    second: RigRArmIndex3
+  - first:
+      4: 400088
+    second: RigRArmPalm
+  - first:
+      4: 400090
+    second: RigRArmPalmGizmo
+  - first:
+      4: 400092
+    second: RigRArmPinky1
+  - first:
+      4: 400094
+    second: RigRArmPinky2
+  - first:
+      4: 400096
+    second: RigRArmPinky3
+  - first:
+      4: 400098
+    second: RigRArmThumb1
+  - first:
+      4: 400100
+    second: RigRArmThumb2
+  - first:
+      4: 400102
+    second: RigRArmThumb3
+  - first:
+      4: 400104
+    second: RigRibcage
+  - first:
+      4: 400106
+    second: RigRibcageGizmo
+  - first:
+      4: 400108
+    second: RigRLeg1
+  - first:
+      4: 400110
+    second: RigRLeg2
+  - first:
+      4: 400112
+    second: RigRLegAnkle
+  - first:
+      4: 400114
+    second: RigRLegPlatform
+  - first:
+      4: 400116
+    second: RigRLegToes1
+  - first:
+      4: 400118
+    second: RigRLegToes2
+  - first:
+      4: 400120
+    second: RigRWing01
+  - first:
+      4: 400122
+    second: RigRWing01Gizmo
+  - first:
+      4: 400124
+    second: RigRWing02
+  - first:
+      4: 400126
+    second: RigRWing02Gizmo
+  - first:
+      4: 400128
+    second: RigRWing03
+  - first:
+      4: 400130
+    second: RigRWing03Gizmo
+  - first:
+      4: 400132
+    second: RigSpine1
+  - first:
+      4: 400134
+    second: RigSpine2
+  - first:
+      4: 400136
+    second: RigTail1
+  - first:
+      4: 400138
+    second: RigTail1Gizmo
+  - first:
+      4: 400140
+    second: RigTail2
+  - first:
+      4: 400142
+    second: RigTail2Gizmo
+  - first:
+      4: 400144
+    second: RigTail3
+  - first:
+      4: 400146
+    second: RigTail3Gizmo
+  - first:
+      4: 400148
+    second: RigTail4
+  - first:
+      4: 400150
+    second: RigTail4Gizmo
+  - first:
+      4: 400152
+    second: RigTail5
+  - first:
+      4: 400154
+    second: RigTail5Gizmo
+  - first:
+      4: 400156
+    second: RigTail6
+  - first:
+      4: 400158
+    second: RigTail6Gizmo
+  - first:
+      4: 400160
+    second: RigTail7
+  - first:
+      4: 400162
+    second: RigTail7Gizmo
+  - first:
+      4: 400164
+    second: RigTail8
+  - first:
+      4: 400166
+    second: RigTail8Gizmo
+  - first:
+      21: 2100000
+    second: Material #2
+  - first:
+      43: 4300000
+    second: Dragon Fire
+  - first:
+      74: 7400000
+    second: Fly Idle
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Dragon Fire
   externalObjects: {}
   materials:
-    importMaterials: 0
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -187,6 +533,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -207,6 +554,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Fly Idle
       takeName: Take 001
+      internalID: 0
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0
@@ -236,28 +584,39 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 2
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -266,10 +625,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 1
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -279,14 +638,20 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: fa408bc4676ff234f818bfd0f5ebcd9f,
     type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 2
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

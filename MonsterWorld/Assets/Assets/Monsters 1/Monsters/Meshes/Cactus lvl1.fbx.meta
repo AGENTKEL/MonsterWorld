@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 1135fdd0ddcaaa349948683c8fada3b0
 ModelImporter:
-  serializedVersion: 22102
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       74: 1975792173388843281
@@ -350,10 +350,11 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 2
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -415,14 +416,8 @@ ModelImporter:
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 223446
-  packageName: Cartoon Characters - Mega Pack
-  packageVersion: 1.0
-  assetPath: Assets/NOTFUN/Cartoon Characters Evolution Mega Pack/Meshes/Cactus lvl1.fbx
-  uploadId: 503772

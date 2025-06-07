@@ -14,6 +14,7 @@ public class InteractionSphere : MonoBehaviour {
     public Material sphereMaterial;
 
     private GameObject sphere;
+    public Transform sphereSpawnPos;
     private float currentRadius = 0f;
     private float currentAlpha = 0.5f;
     private bool isGrowing = false;
@@ -46,7 +47,7 @@ public class InteractionSphere : MonoBehaviour {
         if (sphere != null) Destroy(sphere);
         sphereDamage = damage;
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = transform.position;
+        sphere.transform.position = sphereSpawnPos.position;
         sphere.transform.localScale = Vector3.zero;
         Destroy(sphere.GetComponent<Collider>());
         

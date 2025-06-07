@@ -32,12 +32,12 @@ public class Ui_Handler : MonoBehaviour
             _player.CursorToggle();
         }
         
-        if (YG2.envir.isMobile || YG2.envir.isTablet)
+        else
         {
             androidButton.SetActive(true);
             pcButton.SetActive(false);
             pcButtonTutorial.SetActive(false);
-            _player.cursorVisible = false;
+            _player.cursorVisible = true;
             _player.CursorToggle();
         }
     }

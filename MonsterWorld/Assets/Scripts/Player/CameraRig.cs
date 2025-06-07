@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class CameraRig : MonoBehaviour
 {
@@ -37,34 +38,44 @@ public class CameraRig : MonoBehaviour
 
     void HandleRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        float inputX = 0f;
+        float inputY = 0f;
 
-        // Handle right-side screen touch for mobile
-        foreach (Touch touch in Input.touches)
+        if (YG2.envir.isDesktop)
         {
-            if (touch.phase == TouchPhase.Began && touch.position.x > Screen.width / 2f)
+            if (player.cursorVisible) return;
+            // Mouse input for Desktop
+            inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        }
+        else
+        {
+            // Touch input for Mobile
+            foreach (Touch touch in Input.touches)
             {
-                touchFingerId = touch.fingerId;
-                lastTouchPosition = touch.position;
-            }
-            else if (touch.fingerId == touchFingerId && touch.phase == TouchPhase.Moved)
-            {
-                Vector2 delta = touch.deltaPosition * touchSensitivity;
-                mouseX += delta.x;
-                mouseY += delta.y;
-            }
-            else if (touch.fingerId == touchFingerId && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
-            {
-                touchFingerId = -1;
+                if (touch.phase == TouchPhase.Began && touch.position.x > Screen.width / 2f)
+                {
+                    touchFingerId = touch.fingerId;
+                    lastTouchPosition = touch.position;
+                }
+                else if (touch.fingerId == touchFingerId && touch.phase == TouchPhase.Moved)
+                {
+                    Vector2 delta = touch.deltaPosition;
+                    inputX -= delta.x * touchSensitivity;
+                    inputY -= delta.y * touchSensitivity;
+                }
+                else if (touch.fingerId == touchFingerId && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
+                {
+                    touchFingerId = -1;
+                }
             }
         }
 
-        yaw += mouseX * mouseSensitivity;
-        pitch -= mouseY * mouseSensitivity;
+        yaw += inputX;
+        pitch -= inputY;
         pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);
 
-        Vector3 targetRotation = new Vector3(pitch, yaw);
+        Vector3 targetRotation = new Vector3(pitch, yaw, 0f);
         currentRotation = Vector3.SmoothDamp(currentRotation, targetRotation, ref rotationSmoothVelocity, rotationSmoothTime);
 
         transform.eulerAngles = currentRotation;

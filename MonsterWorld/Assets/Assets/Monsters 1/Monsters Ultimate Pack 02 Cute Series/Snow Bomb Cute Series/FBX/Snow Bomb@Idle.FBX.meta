@@ -1,62 +1,164 @@
 fileFormatVersion: 2
 guid: 0dc29645ee4ea2f439a4482695578280
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Rig
-    100002: RigFuse1
-    100004: RigFuse1Gizmo
-    100006: RigFuse2
-    100008: RigFuse2Gizmo
-    100010: RigFuse3
-    100012: RigFuse3Gizmo
-    100014: RigFuse4
-    100016: RigFuse4Gizmo
-    100018: RigHub
-    100020: RigHubGizmo
-    100022: RigJaw Down
-    100024: RigJaw DownGizmo
-    100026: RigLArm1
-    100028: RigLArm1Gizmo
-    100030: RigLArm2
-    100032: RigLArm2Gizmo
-    100034: RigRArm1
-    100036: RigRArm1Gizmo
-    100038: RigRArm2
-    100040: RigRArm2Gizmo
-    100042: Snow Bomb
-    100044: //RootNode
-    400000: Rig
-    400002: RigFuse1
-    400004: RigFuse1Gizmo
-    400006: RigFuse2
-    400008: RigFuse2Gizmo
-    400010: RigFuse3
-    400012: RigFuse3Gizmo
-    400014: RigFuse4
-    400016: RigFuse4Gizmo
-    400018: RigHub
-    400020: RigHubGizmo
-    400022: RigJaw Down
-    400024: RigJaw DownGizmo
-    400026: RigLArm1
-    400028: RigLArm1Gizmo
-    400030: RigLArm2
-    400032: RigLArm2Gizmo
-    400034: RigRArm1
-    400036: RigRArm1Gizmo
-    400038: RigRArm2
-    400040: RigRArm2Gizmo
-    400042: Snow Bomb
-    400044: //RootNode
-    2100000: 'Material #26'
-    4300000: Snow Bomb
-    7400000: Idle
-    9500000: //RootNode
-    13700000: Snow Bomb
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Rig
+  - first:
+      1: 100002
+    second: RigFuse1
+  - first:
+      1: 100004
+    second: RigFuse1Gizmo
+  - first:
+      1: 100006
+    second: RigFuse2
+  - first:
+      1: 100008
+    second: RigFuse2Gizmo
+  - first:
+      1: 100010
+    second: RigFuse3
+  - first:
+      1: 100012
+    second: RigFuse3Gizmo
+  - first:
+      1: 100014
+    second: RigFuse4
+  - first:
+      1: 100016
+    second: RigFuse4Gizmo
+  - first:
+      1: 100018
+    second: RigHub
+  - first:
+      1: 100020
+    second: RigHubGizmo
+  - first:
+      1: 100022
+    second: RigJaw Down
+  - first:
+      1: 100024
+    second: RigJaw DownGizmo
+  - first:
+      1: 100026
+    second: RigLArm1
+  - first:
+      1: 100028
+    second: RigLArm1Gizmo
+  - first:
+      1: 100030
+    second: RigLArm2
+  - first:
+      1: 100032
+    second: RigLArm2Gizmo
+  - first:
+      1: 100034
+    second: RigRArm1
+  - first:
+      1: 100036
+    second: RigRArm1Gizmo
+  - first:
+      1: 100038
+    second: RigRArm2
+  - first:
+      1: 100040
+    second: RigRArm2Gizmo
+  - first:
+      1: 100042
+    second: Snow Bomb
+  - first:
+      1: 100044
+    second: //RootNode
+  - first:
+      4: 400000
+    second: Rig
+  - first:
+      4: 400002
+    second: RigFuse1
+  - first:
+      4: 400004
+    second: RigFuse1Gizmo
+  - first:
+      4: 400006
+    second: RigFuse2
+  - first:
+      4: 400008
+    second: RigFuse2Gizmo
+  - first:
+      4: 400010
+    second: RigFuse3
+  - first:
+      4: 400012
+    second: RigFuse3Gizmo
+  - first:
+      4: 400014
+    second: RigFuse4
+  - first:
+      4: 400016
+    second: RigFuse4Gizmo
+  - first:
+      4: 400018
+    second: RigHub
+  - first:
+      4: 400020
+    second: RigHubGizmo
+  - first:
+      4: 400022
+    second: RigJaw Down
+  - first:
+      4: 400024
+    second: RigJaw DownGizmo
+  - first:
+      4: 400026
+    second: RigLArm1
+  - first:
+      4: 400028
+    second: RigLArm1Gizmo
+  - first:
+      4: 400030
+    second: RigLArm2
+  - first:
+      4: 400032
+    second: RigLArm2Gizmo
+  - first:
+      4: 400034
+    second: RigRArm1
+  - first:
+      4: 400036
+    second: RigRArm1Gizmo
+  - first:
+      4: 400038
+    second: RigRArm2
+  - first:
+      4: 400040
+    second: RigRArm2Gizmo
+  - first:
+      4: 400042
+    second: Snow Bomb
+  - first:
+      4: 400044
+    second: //RootNode
+  - first:
+      21: 2100000
+    second: Material #26
+  - first:
+      43: 4300000
+    second: Snow Bomb
+  - first:
+      74: 7400000
+    second: Idle
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Snow Bomb
   externalObjects: {}
   materials:
-    importMaterials: 0
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -65,6 +167,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -85,6 +188,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle
       takeName: Take 001
+      internalID: 0
       firstFrame: 0
       lastFrame: 40
       wrapMode: 0
@@ -114,28 +218,39 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 2
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -144,10 +259,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -157,13 +272,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

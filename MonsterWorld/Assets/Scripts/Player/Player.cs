@@ -3,8 +3,9 @@ using System.Collections.Generic;
  using TMPro;
  using UnityEngine;
  using UnityEngine.UI;
+using YG;
 
- public class Player : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -144,7 +145,6 @@ using System.Collections.Generic;
     
     public void CursorToggle()
     {
-        cursorVisible = !cursorVisible;
         Cursor.visible = cursorVisible;
         Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
     }
@@ -170,18 +170,24 @@ using System.Collections.Generic;
 
     void HandleAttack()
     {
-        // Hold to attack
-        if (Input.GetMouseButton(0) && interactionCooldownTimer <= 0f && !isAttacking)
+        if (YG2.envir.isDesktop)
         {
-            animator.SetTrigger("Attack");
-            StartCoroutine(DelayedInteraction());
+            // Hold to attack
+            if (Input.GetMouseButton(0) && interactionCooldownTimer <= 0f && !isAttacking)
+            {
+                animator.SetTrigger("Attack");
+                StartCoroutine(DelayedInteraction());
+            }
         }
     }
     
     public void Attack()
     {
-        animator.SetTrigger("Attack");
-        StartCoroutine(DelayedInteraction());
+        if (interactionCooldownTimer <= 0f && !isAttacking)
+        {
+            animator.SetTrigger("Attack");
+            StartCoroutine(DelayedInteraction());
+        }
     }
     
     IEnumerator DelayedInteraction()
