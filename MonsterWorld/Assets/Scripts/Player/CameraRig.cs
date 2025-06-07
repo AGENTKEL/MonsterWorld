@@ -17,6 +17,10 @@ public class CameraRig : MonoBehaviour
     private Vector3 rotationSmoothVelocity;
 
     public Player player;
+    
+    private int touchFingerId = -1;
+    private Vector2 lastTouchPosition;
+    private float touchSensitivity = 0.2f;
 
     void Start()
     {
@@ -26,16 +30,38 @@ public class CameraRig : MonoBehaviour
 
     void LateUpdate()
     {
-        if (player.cursorVisible) return;
-        
-        HandleRotation();
         FollowTarget();
+
+        HandleRotation();
     }
 
     void HandleRotation()
     {
-        yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-        pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        // Handle right-side screen touch for mobile
+        foreach (Touch touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Began && touch.position.x > Screen.width / 2f)
+            {
+                touchFingerId = touch.fingerId;
+                lastTouchPosition = touch.position;
+            }
+            else if (touch.fingerId == touchFingerId && touch.phase == TouchPhase.Moved)
+            {
+                Vector2 delta = touch.deltaPosition * touchSensitivity;
+                mouseX += delta.x;
+                mouseY += delta.y;
+            }
+            else if (touch.fingerId == touchFingerId && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
+            {
+                touchFingerId = -1;
+            }
+        }
+
+        yaw += mouseX * mouseSensitivity;
+        pitch -= mouseY * mouseSensitivity;
         pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);
 
         Vector3 targetRotation = new Vector3(pitch, yaw);
@@ -47,6 +73,20 @@ public class CameraRig : MonoBehaviour
     void FollowTarget()
     {
         if (target == null) return;
-        transform.position = target.position + transform.rotation * offset;
+
+        Vector3 desiredCameraPos = target.position + transform.rotation * offset;
+        Vector3 direction = desiredCameraPos - target.position;
+        float distance = offset.magnitude;
+
+        RaycastHit hit;
+        if (Physics.SphereCast(target.position, 0.3f, direction.normalized, out hit, distance))
+        {
+            // Adjust camera position to hit point minus a small offset
+            transform.position = hit.point - direction.normalized * 0.2f;
+        }
+        else
+        {
+            transform.position = desiredCameraPos;
+        }
     }
 }

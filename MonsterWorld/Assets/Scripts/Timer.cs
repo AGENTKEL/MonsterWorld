@@ -112,12 +112,7 @@ public class Timer : MonoBehaviour
 
                     btn.isActivated = true;
 
-                    // ✅ Show notification once (only the first time something activates)
-                    if (!notificationShown && newRewardNotification != null)
-                    {
-                        newRewardNotification.SetActive(true);
-                        notificationShown = true;
-                    }
+                    newRewardNotification.SetActive(true);
                 }
                 else if (btn.countdownText != null)
                 {

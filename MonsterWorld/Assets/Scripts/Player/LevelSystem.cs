@@ -33,6 +33,8 @@ public class LevelSystem : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip levelUpSound;
+
+    public GameObject tutorialText;
     
 
     private void Start()
@@ -50,6 +52,14 @@ public class LevelSystem : MonoBehaviour
         player.OnLevelUp(currentLevel);
         UpdateUI();
         CheckLocations();
+        if (currentLevel <= 1)
+        {
+            tutorialText.SetActive(true);
+        }
+        else
+        {
+            tutorialText.SetActive(false);
+        }
     }
 
     public void AddXP(int amount)
@@ -75,6 +85,7 @@ public class LevelSystem : MonoBehaviour
                 {
                     audioSource.PlayOneShot(levelUpSound);
                 }
+                tutorialText.SetActive(false);
             }
         }
         

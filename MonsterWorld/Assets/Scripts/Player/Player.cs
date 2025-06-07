@@ -14,6 +14,7 @@ using System.Collections.Generic;
     public Timer timer;
     public PetManager _petManager;
     public Transform cameraRig;
+    public Joystick joystick;
 
     [Header("Animation")]
     public Animator animator;
@@ -65,6 +66,7 @@ using System.Collections.Generic;
         currentHP = maxHP;
         damage = monsterStats.baseDamage;
         UpdateHPUI();
+        CursorToggle();
     }
 
     void Update()
@@ -76,8 +78,7 @@ using System.Collections.Generic;
 
         if (interactionCooldownTimer > 0f)
             interactionCooldownTimer -= Time.deltaTime;
-
-        if (cursorVisible) return;
+        
 
         HandleMovement();
         HandleAttack();
@@ -94,14 +95,20 @@ using System.Collections.Generic;
 
     void HandleMovement()
     {
-        if (cursorVisible) return;
 
         isGrounded = characterController.isGrounded;
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        Vector3 input = new Vector3(h, 0f, v).normalized;
 
+        // Include joystick input
+        if (Mathf.Approximately(h, 0) && Mathf.Approximately(v, 0))
+        {
+            h = joystick.Horizontal;
+            v = joystick.Vertical;
+        }
+
+        Vector3 input = new Vector3(h, 0f, v).normalized;
         bool isWalking = input.magnitude >= 0.1f;
         animator.SetBool("Walk", isWalking);
 
@@ -117,7 +124,6 @@ using System.Collections.Generic;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 10f);
         }
 
-        // Always call Move (even if moveDir is zero)
         characterController.Move(moveDir * moveSpeed * Time.deltaTime);
 
         if (isGrounded && Input.GetButtonDown("Jump"))
@@ -133,8 +139,14 @@ using System.Collections.Generic;
             cursorVisible = !cursorVisible;
             Cursor.visible = cursorVisible;
             Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
-            animator.SetBool("Walk", false);
         }
+    }
+    
+    public void CursorToggle()
+    {
+        cursorVisible = !cursorVisible;
+        Cursor.visible = cursorVisible;
+        Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
     }
     
     public void SetCursorToggle()
@@ -164,6 +176,12 @@ using System.Collections.Generic;
             animator.SetTrigger("Attack");
             StartCoroutine(DelayedInteraction());
         }
+    }
+    
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
+        StartCoroutine(DelayedInteraction());
     }
     
     IEnumerator DelayedInteraction()

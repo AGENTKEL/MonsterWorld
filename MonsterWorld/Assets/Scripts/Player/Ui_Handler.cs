@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class Ui_Handler : MonoBehaviour
 {
@@ -11,6 +13,34 @@ public class Ui_Handler : MonoBehaviour
     public GameObject rewardTimeUI;
 
     public PetManager petManager; // Assign in inspector
+    
+    public GameObject pcButton;
+    public GameObject pcButtonTutorial;
+    
+    public GameObject androidButton;
+
+    public Player _player;
+
+    private void Start()
+    {
+        if (YG2.envir.isDesktop)
+        {
+            pcButton.SetActive(true);
+            pcButtonTutorial.SetActive(true);
+            androidButton.SetActive(false);
+            _player.cursorVisible = false;
+            _player.CursorToggle();
+        }
+        
+        if (YG2.envir.isMobile || YG2.envir.isTablet)
+        {
+            androidButton.SetActive(true);
+            pcButton.SetActive(false);
+            pcButtonTutorial.SetActive(false);
+            _player.cursorVisible = false;
+            _player.CursorToggle();
+        }
+    }
 
     public void TogglePetShop()
     {
